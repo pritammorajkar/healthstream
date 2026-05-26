@@ -1,0 +1,89 @@
+// This is your Prisma schema file.
+// Do NOT run migrations yet — database setup is pending.
+// Run `npx prisma migrate dev` when PostgreSQL is ready.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PatientStatus {
+  identified
+  outreach
+  care_plan
+  stabilized
+}
+
+enum PatientRisk {
+  high
+  medium
+  low
+}
+
+enum BiomarkerType {
+  mutation
+  expression
+  flag
+}
+
+enum CareStreamEventType {
+  success
+  critical
+  info
+}
+
+model Patient {
+  id             String         @id @default(cuid())
+  initials       String
+  firstName      String
+  lastName       String
+  dob            String
+  hccScore       Float
+  primaryConcern String
+  status         PatientStatus
+  risk           PatientRisk
+  diagnosis      String?
+  staging        String?
+
+  // Nested relations
+  biomarkers     Biomarker[]
+  location       PatientLocation?
+  careEvents     CareStreamEvent[]
+
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+model Biomarker {
+  id        String        @id @default(cuid())
+  name      String
+  value     String
+  type      BiomarkerType
+  patientId String
+  patient   Patient       @relation(fields: [patientId], references: [id], onDelete: Cascade)
+}
+
+model PatientLocation {
+  id        String  @id @default(cuid())
+  zip       String
+  lat       Float
+  lng       Float
+  patientId String  @unique
+  patient   Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+}
+
+model CareStreamEvent {
+  id          String              @id @default(cuid())
+  type        CareStreamEventType
+  title       String
+  description String
+  timestamp   String
+  patientId   String?
+  patient     Patient?            @relation(fields: [patientId], references: [id], onDelete: SetNull)
+
+  createdAt   DateTime            @default(now())
+}
