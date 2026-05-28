@@ -27,3 +27,11 @@ dist-ssr
 .env
 .env.local
 .env.*.local
+**/.env
+
+# TypeScript build cache
+*.tsbuildinfo
+
+# Generated declaration files outside src/
+vite.config.d.ts
+vite.config.js

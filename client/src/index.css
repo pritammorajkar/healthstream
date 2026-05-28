@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Bacancy brand theme ─────────────────────────────────────────────────────
+   Tailwind v3: CSS vars live here in :root; utility mapping is in
+   tailwind.config.js extend.colors. The @theme {} block is a v4 concept —
+   this :root block is the exact v3 equivalent.
+   ─────────────────────────────────────────────────────────────────────────── */
+:root {
+  --color-brand-50:  #fff8f4;
+  --color-brand-100: #ffecdd;
+  --color-brand-200: #ffd4b8;
+  --color-brand-300: #ffb380;
+  --color-brand-400: #f7933e;
+  --color-brand-500: #f58220;
+  --color-brand-600: #e06d10;
+  --color-brand-700: #bc5a0e;
+  --color-brand-800: #994a0f;
+  --color-brand-900: #7c3e10;
+  --color-medical-teal: #14b8a6;
+
+  /* page-load progress bar — wire to router / NProgress in Phase 2 */
+  --color-progress-bar: #f58220;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Outfit', 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 bg-brand-500 text-white rounded-md hover:bg-brand-600 transition-colors;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 bg-gray-300 text-gray-900 rounded-md hover:bg-gray-400 transition-colors;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6;
+  }
+}

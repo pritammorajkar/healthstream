@@ -5,12 +5,27 @@ Clinical Command Center Dashboard
 React + TypeScript + Tailwind CSS (Vite)
 
 ## Design Reference
-Always match the HealthStream dashboard design.
-Primary color: #1B3F8B (dark blue)
-Background: #F3F4F6 (light gray page bg)
-Cards: white with light border and subtle shadow
-Font: Inter or system sans-serif
-Border radius: rounded-xl for cards, rounded-lg for buttons
+App name: Bacancy HealthStream
+Always match the Bacancy brand. Full palette is in `client/tailwind.config.js` and `client/src/index.css`.
+
+### Brand colors (Tailwind classes to use)
+- Primary action / links / active states → `brand-500` (#f58220)
+- Hover on primary → `brand-600` (#e06d10)
+- Light tint backgrounds (active nav, badges) → `brand-50` / `brand-100`
+- Medical accent → `medical-teal` (#14b8a6) — checkmarks, success indicators
+- Never use hard-coded hex for brand — always use the `brand-*` scale
+
+### Other tokens
+- Page background: `bg-gray-50`
+- Cards: `bg-white` + `border border-gray-100` + `shadow-sm` + `rounded-xl`
+- Body font: Inter (`font-sans`) — configured in tailwind
+- Heading font: Outfit (`font-display`) — use for app name / large headings
+- Border radius: `rounded-xl` cards, `rounded-lg` buttons
+
+### Logo
+- Icon mark: `/branding/bacancy-logo-without-name.png` — use via `<BrandLogo />`
+- Full wordmark: `/branding/bacancy-logo.png` — for marketing/auth pages only
+- Both files live in `client/public/branding/`
 
 ## Folder Structure
 src/
@@ -40,6 +55,19 @@ Every component must handle:
 - Loading state
 - Empty state (no data)
 - The happy path (data exists)
+
+## Libraries
+- Recharts — all charts and data visualisations
+- Framer Motion — page transitions and animations
+- React Router v6 — all routing
+- React Hot Toast — toast notifications
+
+## Animation Rules
+- Page transitions: fade in 200ms on route change
+- Numbers on dashboard: count up animation on load
+- Skeleton loaders: pulse animation on every data fetch
+- Modals and drawers: slide in from right, fade overlay
+- Keep animations subtle — this is a medical product not a landing page
 
 ## Business Context (from PRD)
 This is a Population Health Management platform for clinical staff.
